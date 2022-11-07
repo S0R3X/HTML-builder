@@ -40,14 +40,14 @@ const dataСonnection = async (dir, arrDataDir, dataFile) => {
 
 const createFiniteHtml = async (mainFile, componets, finiteFile) => {
   const arrDataComponents = await dataFromDirAsync(componets, ".html");
-  const dataMainFile = await dataFromFile(pathToTemplate);
+  const dataMainFile = await dataFromFile(mainFile);
   const finalData = await dataСonnection(
     componets,
     arrDataComponents,
     dataMainFile
   );
   return new Promise((resolve) => {
-    let writeableStream = fs.createWriteStream(pathToProjectDistIndex);
+    let writeableStream = fs.createWriteStream(finiteFile);
     writeableStream.write(finalData);
     resolve();
   });
