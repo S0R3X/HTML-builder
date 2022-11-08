@@ -4,10 +4,18 @@ const path = require("path");
 const pathToFiles = path.join(__dirname, "files");
 const pathToCopyFiles = path.join(__dirname, "files-copy");
 
-const mkdirAsync = async (pathToFile) => {
+const mkdirAsync = async (pathToDir) => {
   return new Promise((resolve, reject) => {
-    fs.mkdir(pathToFile, { recursive: true }, (err) => {
+    fs.mkdir(pathToDir, { recursive: true }, (err) => {
       if (err) return reject(err);
+      fs.readdir(pathToDir, (err, files) => {
+        if (err) reject(err);
+        for (const file of files) {
+          fs.unlink(path.join(pathToDir, file), (err) => {
+            if (err) reject(err);
+          });
+        }
+      });
       resolve();
     });
   });
