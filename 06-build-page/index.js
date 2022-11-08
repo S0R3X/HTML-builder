@@ -60,5 +60,6 @@ mkdirAsync(pathToProjectDist)
   )
   .then(() => createFileAsync(pathToProjectDistStyle))
   .then(() => mergeStylesToFileAsync(pathToStyles, pathToProjectDistStyle))
+  .then(() => mkdirAsync(pathToProjectDistAssets))
   .then(() => copyDirAsync(pathToAssets, pathToProjectDistAssets))
   .catch(() => console.log(err));
